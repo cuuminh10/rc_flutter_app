@@ -9,13 +9,13 @@ import 'lang/lang.dart';
 import 'routes/routes.dart';
 import 'theme/theme.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await DenpendencyInjection.init();
-
-  runApp(App());
-  configLoading();
-}
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await DenpendencyInjection.init();
+//
+//   runApp(App());
+//   configLoading();
+// }
 
 class App extends StatelessWidget {
   @override

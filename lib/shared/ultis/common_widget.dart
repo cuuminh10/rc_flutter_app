@@ -28,10 +28,14 @@ class CommonWidget {
     );
   }
 
-  static Widget body({Container child}) {
-    return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.0),
-        child: child
+  static Widget body({Container child, bool showSearch = false, TextEditingController controller, void Function(String) onChange}) {
+    return Column(
+      children: [
+        Expanded(
+          child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0), child: child),
+        )
+      ],
     );
   }
 

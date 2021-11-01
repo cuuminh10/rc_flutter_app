@@ -7,5 +7,6 @@ class WelcomeController extends GetxController {
     super.onReady();
 
     await Future.delayed(Duration(milliseconds: 2000));
+    Get.toNamed(Routes.AUTH);
   }
 }

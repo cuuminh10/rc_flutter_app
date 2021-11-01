@@ -15,6 +15,8 @@ FutureOr<Request> requestInterceptor(request) async {
     // request.headers['Accept'] = 'application/json, text/plain, */*';
   }
 
+  request.headers['Content-Type'] = 'application/json';
+
   EasyLoading.show(status: 'loading...');
   return request as Request;
 }

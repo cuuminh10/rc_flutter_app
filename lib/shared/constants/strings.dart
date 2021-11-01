@@ -22,4 +22,6 @@ class StringConstant {
   static String Project = 'Project';
   static String Search = 'Search...';
   static String plans = 'Plans';
+  static String shortcut = 'Short cut';
+  static String all = 'All';
 }

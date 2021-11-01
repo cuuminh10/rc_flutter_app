@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:gmc_app/modules/welcome/welcome_controller.dart';
+import 'package:gmc_app/shared/constants/colors.dart';
 import 'package:gmc_app/shared/ultis/ultis.dart';
 
-class WelcomeScreen extends StatelessWidget {
+class WelcomeScreen extends GetView<WelcomeController> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      backgroundColor: HexColor('#07245B'),
+      backgroundColor: ColorConstants.Blue800,
       body: SafeArea(
           child: Center(
             child: Column(
