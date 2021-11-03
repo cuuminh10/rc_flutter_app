@@ -1,11 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:gmc_app/shared/widgets/gmc_input_search.dart';
+import 'package:gmc_app/shared/widgets/gmc_search_favor.dart';
+import 'package:gmc_app/shared/widgets/gmc_sort_popup.dart';
+import 'package:gmc_app/shared/widgets/gmc_svg.dart';
 
 class CommonWidget {
-  static AppBar appBar(BuildContext context, String title, IconData backIcon,
-      Color color,
-      {void Function() callback}) {
+  static AppBar appBar(
+      BuildContext context, String title, IconData backIcon, Color color,
+      {void Function() callback, void Function(String) callbackGroupBy ,Map<String,String> listSort, void Function() callbackSearch, void Function(dynamic) callbackSearchModel}) {
     return AppBar(
+      actions: [
+        if (callbackSearch != null && callbackSearchModel == null)
+          IconButton(
+            icon: GmcSVG(
+              icon: 'assets/svg/search.svg',
+            ),
+            onPressed: () {
+              callbackSearch();
+            },
+          ),
+        if (callbackSearchModel != null)
+          GmcSearchFavor(
+              child: Icon(
+                Icons.search,
+                key: GlobalKey(),
+                color: Colors.black87,
+                size: 30,
+              ),
+              onGroupBy:  callbackSearchModel),
+       if (callbackGroupBy != null)
+          GmcSortPopup(
+            child: Icon(
+              Icons.sort_by_alpha_outlined,
+              key: GlobalKey(),
+              color: Colors.black87,
+              size: 30,
+            ),
+            listSort: listSort,
+            callbackGroupBy: callbackGroupBy,
+          )
+      ],
       leading: backIcon == null
           ? null
           : IconButton(
@@ -18,10 +53,15 @@ class CommonWidget {
           }
         },
       ),
+      titleSpacing: 0.0,
       centerTitle: false,
-      title: Text(
-        title,
-        style: TextStyle(color: color, fontFamily: 'Rubik'),
+      title: Transform(
+        transform:
+        Matrix4.translationValues(backIcon == null ? -40.0 : 0.0, 0.0, 0.0),
+        child: Text(
+          title,
+          style: TextStyle(color: color, fontFamily: 'Rubik'),
+        ),
       ),
       backgroundColor: Colors.transparent,
       elevation: 0.0,
@@ -31,6 +71,11 @@ class CommonWidget {
   static Widget body({Container child, bool showSearch = false, TextEditingController controller, void Function(String) onChange}) {
     return Column(
       children: [
+        if (showSearch)
+          GmcInputSearch(
+            controller: controller,
+            onChange: onChange,
+          ),
         Expanded(
           child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0), child: child),

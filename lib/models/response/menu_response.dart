@@ -1,13 +1,13 @@
-class FavorResponse {
+class MenuResponse {
 
   int id;
   String moduleName;
   String image;
   String name;
 
-  FavorResponse(this.id, this.moduleName, this.image, this.name);
+  MenuResponse(this.id, this.moduleName, this.image, this.name);
 
-  FavorResponse.fromJsonMap(Map<String, dynamic> map):
+  MenuResponse.fromJsonMap(Map<String, dynamic> map):
         id = map["id"],
         moduleName = map["moduleName"];
 

@@ -1,26 +1,33 @@
+import 'package:gmc_app/routes/app_pages.dart';
+import 'package:intl/intl.dart';
+
 class helper {
   static const String ProductionOrdr = 'ProductionOrdr';
   static const String ProductionFG = 'ProductionFG';
 
   static dynamic filterScreensGMC(String codeScreen) {
-    var data = {'name': '', 'code': ''};
+    var data = null;
 
     switch (codeScreen) {
       case ProductionOrdr:
+        data = {};
         data['name'] = 'Job Ticket';
         data['code'] = 'jobticket';
         data['label_topLeft'] = 'Phase';
         data['label_topRight'] = 'Work Center';
         data['label_bottomLeft'] = 'Pic By';
         data['label_bottomRight'] = 'Due Date';
+        data['screen'] = Routes.FAVOR_LIST;
         break;
       case ProductionFG:
+        data = {};
         data['name'] = 'Production Result';
         data['code'] = 'producResult';
         data['label_topLeft'] = 'Phase';
         data['label_topRight'] = 'Work Center';
         data['label_bottomLeft'] = 'Pic By';
         data['label_bottomRight'] = 'Due Date';
+        data['screen'] = Routes.FAVOR;
         break;
     }
 
@@ -65,5 +72,11 @@ class helper {
       default:
         return 'Approval Form';
     }
+  }
+
+  static String ConvertDateTime (String dateString)  {
+    var inputDate = DateTime.parse(dateString);
+    String output = DateFormat('d/MM/yyyy').format(inputDate);
+    return output;
   }
 }

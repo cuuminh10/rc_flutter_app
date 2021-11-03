@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:gmc_app/modules/auth/auth_binding.dart';
 import 'package:gmc_app/modules/auth/auth_screen.dart';
+import 'package:gmc_app/modules/favor/favor_binding.dart';
+import 'package:gmc_app/modules/favor/favor_screen.dart';
 import 'package:gmc_app/modules/favor_list/favor_list_binding.dart';
 import 'package:gmc_app/modules/favor_list/favor_list_screen.dart';
 import 'package:gmc_app/modules/menu/menu_binding.dart';
@@ -33,6 +35,11 @@ class AppPages {
       name: Routes.FAVOR_LIST,
       page: () => FavorListScreen(),
       binding:  FavorListBinding(),
+    ),
+    GetPage(
+      name: Routes.FAVOR,
+      page: () => FavorScreen(),
+      binding:  FavorBinding(),
     ),
   ];
 }

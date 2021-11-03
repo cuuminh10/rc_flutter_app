@@ -1,11 +1,11 @@
-class FavorRequest {
+class MenuRequest {
 
   String moduleName;
 
 
-  FavorRequest(this.moduleName);
+  MenuRequest(this.moduleName);
 
-  FavorRequest.fromJsonMap(Map<String, dynamic> map):
+  MenuRequest.fromJsonMap(Map<String, dynamic> map):
         moduleName = map["moduleName"];
 
   Map<String, dynamic> toJson() {

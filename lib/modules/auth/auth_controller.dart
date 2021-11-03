@@ -42,7 +42,7 @@ class AuthController extends GetxController {
     super.onReady();
     try {
       if (storage.getString(StorageConstants.token) != null) {
-        Get.toNamed(Routes.FAVOR_LIST);
+        Get.toNamed(Routes.MENU);
         loadPriorityConfig();
       } else {
         Get.toNamed(Routes.AUTH);

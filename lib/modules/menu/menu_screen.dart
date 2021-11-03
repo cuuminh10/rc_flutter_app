@@ -66,9 +66,7 @@ class MenuScreen extends GetView<MenuController> {
                                 controller.listFavor.value.length,
                                     (index) {
                                   return GestureDetector(
-                                    onTap: () => {
-
-                                    },
+                                    onTap: () => controller.redirectTo(controller.listFavor.value[index]),
                                     child: GmcCard(
                                       horizontal: 10.0,
                                       color: ColorConstants.Blue100,

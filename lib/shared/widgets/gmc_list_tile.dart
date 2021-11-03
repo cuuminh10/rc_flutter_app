@@ -23,7 +23,7 @@ class GmcListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTapItem(),
+      onTap: () => onTapItem != null ? onTapItem() : null,
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
@@ -39,7 +39,7 @@ class GmcListTile extends StatelessWidget {
                 : null,
             title: tittle,
             trailing: GestureDetector(
-              onTap:  () => onTapTralling(),
+              onTap: onTapTralling != null ? () => onTapTralling() : null,
               child: GmcSVG(
                 icon: iconTralling,
               ),

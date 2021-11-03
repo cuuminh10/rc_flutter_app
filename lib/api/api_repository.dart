@@ -3,10 +3,11 @@
 import 'package:get/get.dart';
 import 'package:gmc_app/api/base_provider.dart';
 import 'package:gmc_app/models/request/favor_list_request.dart';
-import 'package:gmc_app/models/request/favor_request.dart';
+import 'package:gmc_app/models/request/menu_request.dart';
 import 'package:gmc_app/models/request/login_request.dart';
 import 'package:gmc_app/models/response/favor_list_response.dart';
-import 'package:gmc_app/models/response/favor_response.dart';
+import 'package:gmc_app/models/response/favor_reponse.dart';
+import 'package:gmc_app/models/response/menu_response.dart';
 import 'package:gmc_app/models/response/info_server_response.dart';
 import 'package:gmc_app/models/response/login_response.dart';
 
@@ -35,21 +36,21 @@ class ApiRepository extends BaseProvider{
     }
   }
 
-  Future<RxList<FavorResponse>> onGetFavor(String path) async {
+  Future<RxList<MenuResponse>> onGetFavor(String path) async {
     final res = await apiProvider.onGetFavor(path);
     if (res.statusCode == 200) {
       final List<dynamic> listResult = res.body.map((comment) {
-        return FavorResponse.fromJsonMap(comment);
+        return MenuResponse.fromJsonMap(comment);
       }).toList();
 
-      return  RxList<FavorResponse>.from(listResult);
+      return  RxList<MenuResponse>.from(listResult);
     }
   }
 
-  Future<FavorResponse> onPostFavor(String path, FavorRequest favorRequest) async {
-    final res = await apiProvider.onPostFavor(path, favorRequest);
+  Future<MenuResponse> onPostFavorMenu(String path, MenuRequest favorRequest) async {
+    final res = await apiProvider.onPostFavorMenu(path, favorRequest);
     if (res.statusCode == 200) {
-      return FavorResponse.fromJsonMap(res.body);
+      return MenuResponse.fromJsonMap(res.body);
     }
   }
 
@@ -68,6 +69,17 @@ class ApiRepository extends BaseProvider{
       }).toList();
 
       return  RxList<FavorListResponse>.from(listResult);
+    }
+  }
+
+  Future<RxList<FavorResponse>> onPostFavor(String path, FavorListRequest favorRequest) async {
+    final res = await apiProvider.onPostFavor(path, favorRequest);
+    if (res.statusCode == 200) {
+      final List<dynamic> listResult = res.body.map((comment) {
+        return FavorResponse.fromJsonMap(comment);
+      }).toList();
+
+      return  RxList<FavorResponse>.from(listResult);
     }
   }
 

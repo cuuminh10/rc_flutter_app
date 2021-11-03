@@ -15,6 +15,16 @@ class FavorListScreen extends GetView<FavorListController> {
       () => Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
+        appBar: CommonWidget.appBar(
+            context,
+            controller.tittle.value,
+            Icons.arrow_back,
+            Colors.black,
+            listSort: controller.listSort,
+            callbackSearchModel: (e) => controller.groupByFavorList(favorListRequest: e),
+            callbackGroupBy: (e) => controller.groupByFavorList(property: e),
+            // callbackSearch: () => controller.onClickSearch()
+        ),
         body: CommonWidget.body(
           child: Container(
             child: ListView.separated(
@@ -25,8 +35,9 @@ class FavorListScreen extends GetView<FavorListController> {
                       color: Colors.white,
                     ),
                 itemBuilder: (BuildContext context, int index) {
+                  final favorListItem = controller.listFavor.value[index];
                   return GmcListTile(
-                    onTapTralling: () => {},
+                    onTapItem: () => controller.redirectTo(favorListItem),
                     tittle: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

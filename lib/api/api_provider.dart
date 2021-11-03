@@ -1,7 +1,7 @@
 
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:gmc_app/models/request/favor_list_request.dart';
-import 'package:gmc_app/models/request/favor_request.dart';
+import 'package:gmc_app/models/request/menu_request.dart';
 import 'package:gmc_app/models/request/login_request.dart';
 
 import 'base_provider.dart';
@@ -17,7 +17,7 @@ class ApiProvider extends BaseProvider {
     return get(path);
   }
 
-  Future<Response> onPostFavor(String path, FavorRequest favorRequest) {
+  Future<Response> onPostFavorMenu(String path, MenuRequest favorRequest) {
     return post(path, favorRequest.toJson());
   }
 
@@ -30,6 +30,10 @@ class ApiProvider extends BaseProvider {
   }
 
   Future<Response> onPostListFavor(String path, FavorListRequest favorRequest) {
+    return post(path, favorRequest.toJson());
+  }
+
+  Future<Response> onPostFavor(String path, FavorListRequest favorRequest) {
     return post(path, favorRequest.toJson());
   }
 }
