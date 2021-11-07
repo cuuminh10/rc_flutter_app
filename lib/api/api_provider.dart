@@ -36,4 +36,8 @@ class ApiProvider extends BaseProvider {
   Future<Response> onPostFavor(String path, FavorListRequest favorRequest) {
     return post(path, favorRequest.toJson());
   }
+
+  Future<Response> onGetFavorDetail(String path) {
+    return get(path);
+  }
 }

@@ -24,4 +24,5 @@ class StringConstant {
   static String plans = 'Plans';
   static String shortcut = 'Short cut';
   static String all = 'All';
+  static String send = 'Send';
 }

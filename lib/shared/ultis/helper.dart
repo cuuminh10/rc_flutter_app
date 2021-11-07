@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 class helper {
   static const String ProductionOrdr = 'ProductionOrdr';
   static const String ProductionFG = 'ProductionFG';
+  static String Jobticket = 'jobticket';
 
   static dynamic filterScreensGMC(String codeScreen) {
     var data = null;
@@ -17,6 +18,8 @@ class helper {
         data['label_topRight'] = 'Work Center';
         data['label_bottomLeft'] = 'Pic By';
         data['label_bottomRight'] = 'Due Date';
+        data['editDesc'] = false;
+        data['actionAppbBar'] = 'Result';
         data['screen'] = Routes.FAVOR_LIST;
         break;
       case ProductionFG:
@@ -27,6 +30,8 @@ class helper {
         data['label_topRight'] = 'Work Center';
         data['label_bottomLeft'] = 'Pic By';
         data['label_bottomRight'] = 'Due Date';
+        data['editDesc'] = true;
+        data['actionAppbBar'] = 'Save';
         data['screen'] = Routes.FAVOR;
         break;
     }
@@ -75,8 +80,20 @@ class helper {
   }
 
   static String ConvertDateTime (String dateString)  {
+    if (dateString == null) {
+      return "";
+    }
     var inputDate = DateTime.parse(dateString);
     String output = DateFormat('d/MM/yyyy').format(inputDate);
     return output;
+  }
+
+  static String cutName(String name) {
+    if (name != null && name.trim().isNotEmpty &&  name.split("").length > 0) {
+      var nameArr = name.split("");
+      String nameCut = nameArr[0].toUpperCase();
+      return nameCut;
+    }
+    return "";
   }
 }

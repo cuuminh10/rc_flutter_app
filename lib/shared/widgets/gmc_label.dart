@@ -7,7 +7,7 @@ class GmcLabel extends StatelessWidget {
   final FontWeight fontWeight;
   final String label;
 
-  const GmcLabel({Key key, this.color = Colors.white, this.fontSize = 22.0, this.fontFamily = 'Gotham', this.fontWeight = FontWeight.w600, this.label})
+  const GmcLabel({Key key, this.color = Colors.white, this.fontSize = 22.0, this.fontFamily = 'Gotham', this.fontWeight = FontWeight.normal, this.label})
       : super(key: key);
 
   @override

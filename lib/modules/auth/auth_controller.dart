@@ -40,10 +40,10 @@ class AuthController extends GetxController {
   @override
   void onReady() async {
     super.onReady();
+    initialData();
     try {
       if (storage.getString(StorageConstants.token) != null) {
         Get.toNamed(Routes.MENU);
-        loadPriorityConfig();
       } else {
         Get.toNamed(Routes.AUTH);
       }

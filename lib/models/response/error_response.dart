@@ -2,10 +2,10 @@ import 'dart:convert';
 
 class ErrorResponse {
   ErrorResponse({
-     this.error,
+     this.message
   });
 
-  String error;
+  String message;
 
   factory ErrorResponse.fromRawJson(String str) =>
       ErrorResponse.fromJson(json.decode(str));
@@ -13,10 +13,10 @@ class ErrorResponse {
   String toRawJson() => json.encode(toJson());
 
   factory ErrorResponse.fromJson(Map<String, dynamic> json) => ErrorResponse(
-    error: json["error"],
+    message: json["message"],
   );
 
   Map<String, dynamic> toJson() => {
-    "error": error,
+    "message": message,
   };
 }

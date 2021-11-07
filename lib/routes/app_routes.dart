@@ -6,4 +6,5 @@ abstract class Routes {
   static const MENU = '/menu';
   static const FAVOR_LIST = '/favor_list';
   static const FAVOR = '/favor';
+  static const FAVOR_DETAIL = '/favor_detail';
 }

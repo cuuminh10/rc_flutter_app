@@ -4,6 +4,10 @@ class ColorConstants {
   static Color Blue800 = hexToColor('#07245B');
   static Color Blue500 = hexToColor('#4A77BE');
   static Color Blue100 = hexToColor('#E1EDF9');
+  static Color Gray6 = hexToColor('#D1D5DB');
+  static Color Gray3 = hexToColor('#4B5563');
+  static Color content = hexToColor('#4E5983');
+  static Color lightYellow = hexToColor('#FFEECA');
   static Color lightGray = Color(0xFFF6F6F6);
   static Color lightScaffoldBackgroundColor = hexToColor('#F9F9F9');
   static Color darkScaffoldBackgroundColor = hexToColor('#2F2E2E');
@@ -14,6 +18,9 @@ class ColorConstants {
   static Color black = Color(0xFF000000);
   static Color white = Color(0xFFFFFFFF);
   static Color darkHeading = hexToColor('#002158');
+  static Color fuchisa = hexToColor('#F178B6');
+  static Color warning = hexToColor('#FBC756');
+
 }
 
 Gradient gradient(bool disable) {

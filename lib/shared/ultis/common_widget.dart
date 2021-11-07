@@ -8,7 +8,7 @@ import 'package:gmc_app/shared/widgets/gmc_svg.dart';
 class CommonWidget {
   static AppBar appBar(
       BuildContext context, String title, IconData backIcon, Color color,
-      {void Function() callback, void Function(String) callbackGroupBy ,Map<String,String> listSort, void Function() callbackSearch, void Function(dynamic) callbackSearchModel}) {
+      {void Function() callback, void Function(String) callbackGroupBy ,Map<String,String> listSort, void Function() callbackSearch, void Function(dynamic) callbackSearchModel, Widget customAction}) {
     return AppBar(
       actions: [
         if (callbackSearch != null && callbackSearchModel == null)
@@ -39,7 +39,10 @@ class CommonWidget {
             ),
             listSort: listSort,
             callbackGroupBy: callbackGroupBy,
-          )
+          ),
+
+        if (customAction !=null)
+          customAction
       ],
       leading: backIcon == null
           ? null
@@ -96,9 +99,9 @@ class CommonWidget {
     await Fluttertoast.showToast(
         msg: error,
         toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
+        gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 3,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey,
         textColor: Colors.black,
         fontSize: 16.0);
   }

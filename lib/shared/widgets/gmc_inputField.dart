@@ -18,26 +18,27 @@ class GmcInputField extends StatelessWidget {
   final Widget prefixWidget;
   final Widget suffixWidget;
   final EdgeInsetsGeometry paddingBoder;
+  final bool borderNone;
 
-  const GmcInputField(
-      {Key key,
-      this.controller,
-      this.keyboardType,
-      this.labelText,
-      this.placeholder,
-      this.color,
-      this.fontSize = 22.0,
-      this.password = false,
-      this.validator = null,
-      this.padding = 8.0,
-      this.prefixIcon = null,
-      this.suffixIcon = null,
-      this.onPress,
-      this.onChange,
-      this.readOnly = false,
-      this.prefixWidget = null,
-      this.suffixWidget = null,
-      this.paddingBoder = const EdgeInsets.symmetric(vertical: 18.0, horizontal: 5.0)})
+  const GmcInputField({Key key,
+    this.controller,
+    this.keyboardType,
+    this.labelText,
+    this.placeholder,
+    this.color,
+    this.fontSize = 22.0,
+    this.password = false,
+    this.validator = null,
+    this.padding = 8.0,
+    this.prefixIcon = null,
+    this.suffixIcon = null,
+    this.onPress,
+    this.onChange,
+    this.readOnly = false,
+    this.prefixWidget = null,
+    this.suffixWidget = null,
+    this.paddingBoder = const EdgeInsets.symmetric(
+        vertical: 18.0, horizontal: 5.0), this.borderNone = false})
       : super(key: key);
 
   @override
@@ -48,16 +49,16 @@ class GmcInputField extends StatelessWidget {
       decoration: InputDecoration(
         fillColor: Colors.transparent,
         contentPadding: paddingBoder,
-        border: OutlineInputBorder(
+        border: !borderNone ? OutlineInputBorder(
             borderRadius: BorderRadius.circular(6.0),
             borderSide: BorderSide(
               color: color,
-            )),
-        focusedBorder: OutlineInputBorder(
+            )) : InputBorder.none,
+        focusedBorder:!borderNone ? OutlineInputBorder(
           borderSide: BorderSide(
             color: color,
           ),
-        ),
+        ) : null,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: labelText,
         labelStyle: TextStyle(
@@ -76,20 +77,20 @@ class GmcInputField extends StatelessWidget {
         isDense: true,
         prefixIcon: prefixIcon != null
             ? Icon(
-                prefixIcon,
-                color: color,
-                size: 24.0,
-              )
+          prefixIcon,
+          color: color,
+          size: 24.0,
+        )
             : (prefixWidget != null ? prefixWidget : null),
         suffixIcon: suffixIcon != null
             ? IconButton(
-                onPressed: () => onPress(),
-                icon: Icon(
-                  suffixIcon ?? null,
-                  color: color,
-                  size: 24.0,
-                ),
-              )
+          onPressed: () => onPress(),
+          icon: Icon(
+            suffixIcon ?? null,
+            color: color,
+            size: 24.0,
+          ),
+        )
             : (suffixWidget != null ? suffixWidget : null),
       ),
       controller: controller,

@@ -33,7 +33,7 @@ class FavorScreen extends GetView<FavorController> {
           onChange: (e) => controller.onChangeSearch(e),
           child: Container(
             child: ListView.separated(
-                itemCount: 25,
+                itemCount: controller.listFavorSearch.length,
                 separatorBuilder: (BuildContext context, int index) =>
                 const Divider(
                   height: 10,

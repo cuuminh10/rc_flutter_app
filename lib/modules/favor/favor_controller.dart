@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:gmc_app/api/api_repository.dart';
 import 'package:gmc_app/models/request/favor_list_request.dart';
 import 'package:gmc_app/models/response/favor_reponse.dart';
+import 'package:gmc_app/routes/app_pages.dart';
 import 'package:gmc_app/shared/constants/constants.dart';
 
 class FavorController extends GetxController {
@@ -23,13 +24,13 @@ class FavorController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    initialData();
   }
 
   @override
   void onReady() async {
     super.onReady();
     tittle.value = arguments;
+    initialData();
   }
 
   @override
@@ -50,7 +51,9 @@ class FavorController extends GetxController {
     showInputSearch.value = !showInputSearch.value;
   }
 
-  redirectTo(FavorResponse favorListItem) {}
+  redirectTo(FavorResponse favorListItem) {
+      Get.toNamed(Routes.FAVOR_DETAIL,arguments: favorListItem);
+  }
 
   onChangeSearch(String e) {
     e = e.toLowerCase().trim();
