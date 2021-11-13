@@ -2,9 +2,11 @@
 
 import 'package:get/get.dart';
 import 'package:gmc_app/api/base_provider.dart';
+import 'package:gmc_app/models/request/comment_request.dart';
 import 'package:gmc_app/models/request/favor_list_request.dart';
 import 'package:gmc_app/models/request/menu_request.dart';
 import 'package:gmc_app/models/request/login_request.dart';
+import 'package:gmc_app/models/response/comment_response.dart';
 import 'package:gmc_app/models/response/favor_detail_reponse.dart';
 import 'package:gmc_app/models/response/favor_list_response.dart';
 import 'package:gmc_app/models/response/favor_reponse.dart';
@@ -91,4 +93,10 @@ class ApiRepository extends BaseProvider{
     }
   }
 
+  Future<CommentResponse> onPostComment(String path, CommentRequest commentRequest) async {
+    final res = await apiProvider.onPostComment(path, commentRequest);
+    if (res.statusCode == 200) {
+      return CommentResponse.fromJsonMap(res.body);
+    }
+  }
 }

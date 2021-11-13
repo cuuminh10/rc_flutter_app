@@ -165,7 +165,7 @@ class helper {
 
 
 
-  static Widget typeOfComment (Comment comment) {
+  static Widget typeOfComment (Document comment) {
     switch (comment.types) {
       case attach:
         try {

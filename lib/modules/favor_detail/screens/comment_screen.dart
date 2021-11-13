@@ -20,7 +20,7 @@ class CommentScreen extends GetView<FavorDetailController> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListView(
-            children: controller.favorDetailResponse.value.listComment
+            children: controller.listDocument.value
                 .map(
                   (element) => SwipeTo(
                   onRightSwipe: () =>

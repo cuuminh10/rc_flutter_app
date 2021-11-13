@@ -14,7 +14,7 @@ class GmcMessage extends StatelessWidget {
   final String content;
   final String reply;
   final String subTittle;
-  final Comment comment;
+  final Document comment;
 
   const GmcMessage(
       {Key key,

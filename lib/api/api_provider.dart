@@ -1,5 +1,6 @@
 
 import 'package:get/get_connect/http/src/response/response.dart';
+import 'package:gmc_app/models/request/comment_request.dart';
 import 'package:gmc_app/models/request/favor_list_request.dart';
 import 'package:gmc_app/models/request/menu_request.dart';
 import 'package:gmc_app/models/request/login_request.dart';
@@ -39,5 +40,9 @@ class ApiProvider extends BaseProvider {
 
   Future<Response> onGetFavorDetail(String path) {
     return get(path);
+  }
+
+  Future<Response> onPostComment(String path, CommentRequest commentRequest) {
+    return post(path, commentRequest.toJson());
   }
 }

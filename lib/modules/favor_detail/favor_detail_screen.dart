@@ -338,7 +338,7 @@ class FavorDetailScreen extends GetView<FavorDetailController> {
                                             ),
                                           ),
                                         GmcInputField(
-                                          color: ColorConstants.Gray6,
+                                          color: ColorConstants.black,
                                           controller:
                                               controller.commentTextController,
                                           keyboardType: TextInputType.text,
@@ -356,27 +356,30 @@ class FavorDetailScreen extends GetView<FavorDetailController> {
                                   ),
                                 ),
                                 Container(
-                                  child: Container(
-                                    height: SizeConfig().screenHeight * 0.08,
-                                    width: SizeConfig().screenWidth * 0.2,
-                                    decoration: BoxDecoration(
-                                        gradient: gradient(
-                                            controller.isOnChange.value),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey[500],
-                                            offset: Offset(0.0, 1.5),
-                                            blurRadius: 1.5,
-                                          ),
-                                        ]),
-                                    child: Center(
-                                      child: Text(
-                                        StringConstant.send,
-                                        style: TextStyle(
-                                            color: ColorConstants.white,
-                                            fontWeight: FontWeight.bold),
+                                  child: GestureDetector(
+                                    onTap: () => controller.sendComment(),
+                                    child: Container(
+                                      height: SizeConfig().screenHeight * 0.08,
+                                      width: SizeConfig().screenWidth * 0.2,
+                                      decoration: BoxDecoration(
+                                          gradient: gradient(
+                                              controller.isOnChange.value),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.grey[500],
+                                              offset: Offset(0.0, 1.5),
+                                              blurRadius: 1.5,
+                                            ),
+                                          ]),
+                                      child: Center(
+                                        child: Text(
+                                          StringConstant.send,
+                                          style: TextStyle(
+                                              color: ColorConstants.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ),
                                     ),
                                   ),

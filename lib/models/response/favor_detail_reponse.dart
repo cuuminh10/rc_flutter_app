@@ -17,6 +17,8 @@ class FavorDetailResponse {
   List<Detail> listDetail;
   List<Attach> listAttach;
   List<Comment> listComment;
+  List<Document> listDocument;
+
 
   FavorDetailResponse({this.id});
 
@@ -32,6 +34,8 @@ class FavorDetailResponse {
         phaseNo = map["phaseNo"]  ?? '',
         workCenterName = map["workCenterName"]  ?? '',
         jobTicketNo = map["jobTicketNo"]  ?? '',
+        listDocument = map["document"] != null ? List<Document>.from(
+            map["document"].map((x) => Document.fromJsonMap(x))) : [],
         listDetail = map["detail"] != null ? List<Detail>.from(
             map["detail"].map((x) => Detail.fromJsonMap(x))) : [],
         listAttach =  map["attach"] != null ? List<Attach>.from(
@@ -54,6 +58,7 @@ class FavorDetailResponse {
     data['phaseNo'] = phaseNo;
     data['workCenterName'] = workCenterName;
     data['jobTicketNo'] = jobTicketNo;
+    data['document'] = listDocument;
     return data;
   }
 
@@ -139,6 +144,42 @@ class Comment {
   Comment({this.comment= "", this.types= "comment", this.saveName= "", this.createUser= "", this.createDate, this.realName = ""});
 
   Comment.fromJsonMap(Map<String, dynamic> map):
+        id = map["id"],
+        comment = map["comment"],
+        createUser = map["createUser"],
+        createDate = map["createDate"],
+        realName = map["realName"],
+        saveName = map["saveName"],
+        types = map["types"];
+
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = id;
+    data['comment'] = comment;
+    data['createUser'] = createUser;
+    data['createDate'] = createDate;
+    data['realName'] = realName;
+    data['saveName'] = saveName;
+    data['types'] = types;
+    return data;
+  }
+}
+
+class Document {
+
+  int id;
+  String realName;
+  String saveName;
+  String comment;
+  String types;
+  String createUser;
+  String createDate;
+
+  Document({this.comment= "", this.types= "comment", this.saveName= "", this.createUser= "", this.createDate, this.realName = ""});
+
+
+  Document.fromJsonMap(Map<String, dynamic> map):
         id = map["id"],
         comment = map["comment"],
         createUser = map["createUser"],

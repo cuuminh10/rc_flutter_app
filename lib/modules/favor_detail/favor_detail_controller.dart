@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:gmc_app/api/api_repository.dart';
+import 'package:gmc_app/models/request/comment_request.dart';
 import 'package:gmc_app/models/response/favor_detail_reponse.dart';
 import 'package:gmc_app/models/response/favor_reponse.dart';
 import 'package:gmc_app/shared/constants/constants.dart';
@@ -28,6 +29,7 @@ class FavorDetailController extends GetxController {
   var descriptionTextFieldController = TextEditingController();
   RxBool isReadOnlyDescription = false.obs;
   RxString labelButton = ''.obs;
+  var listDocument = RxList<Document>();
 
 
 
@@ -36,6 +38,7 @@ class FavorDetailController extends GetxController {
   void onInit() {
     super.onInit();
     final prefs = Get.find<SharedPreferences>();
+    commentTextController.text = '';
     // INIT list server
   }
 
@@ -50,8 +53,22 @@ class FavorDetailController extends GetxController {
     final res = await apiRepository.onGetFavorDetail('/productOrder/detail/v2/${infoScreen['code']}/${arguments.no.trim().replaceAll(RegExp(r'/'), '%2F')}');
     if (res != null) {
       favorDetailResponse.value = res;
+      listDocument.value = res.listDocument;
       descriptionTextFieldController.value = TextEditingValue(text: res.description);
     }
+  }
+
+  void sendComment () async {
+   if (commentTextController.text != '') {
+     final res = await apiRepository.onPostComment('/fc/comment/${infoScreen['code']}/${favorDetailResponse.value.id}', CommentRequest(content: commentTextController.text));
+     if (res != null) {
+       listDocument.value.insert(0, Document(comment: res.comment, createUser: res.createUser, createDate: res.createDate ));
+       listDocument.refresh();
+       commentTextController.text = '';
+     }
+   }else {
+     Get.snackbar('', "Comment can' empty");
+   }
   }
 
   void replyFunction(String msg) {
