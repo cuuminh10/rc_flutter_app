@@ -54,6 +54,10 @@ class FavorDetailController extends GetxController {
     }
   }
 
+  void replyFunction(String msg) {
+    reply.value = msg;
+  }
+
   void changePage(int pageNum) {
     selectedPage.value = pageNum;
     pageController.value.animateToPage(

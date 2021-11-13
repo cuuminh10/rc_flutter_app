@@ -49,6 +49,7 @@ dependencies:
   flutter_barcode_scanner: ^2.0.0
   get_storage: ^2.0.3
   intl: ^0.17.0
+  swipe_to: 0.0.1+8
 
 
 dev_dependencies:
