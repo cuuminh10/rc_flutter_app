@@ -32,9 +32,15 @@ class FavorDetailController extends GetxController {
   FavorResponse arguments = Get.arguments;
   RxString tittle = ''.obs;
   Rx<FavorDetailResponse> favorDetailResponse = FavorDetailResponse().obs;
+  Rx<Detail> detailItem = Detail().obs;
   var descriptionTextFieldController = TextEditingController();
   RxBool isReadOnlyDescription = false.obs;
   RxString labelButton = ''.obs;
+  final qtyTextController = TextEditingController();
+  final setUpTextController = TextEditingController();
+  final ncrTextController = TextEditingController();
+  final cancelTextController = TextEditingController();
+
   var listDocument = RxList<Document>();
 
 
@@ -128,8 +134,14 @@ class FavorDetailController extends GetxController {
     }
   }
 
-  void redirectRemark() async{
+  void redirectRemark(Detail detail) async{
    if (infoScreen['remark'] != null && infoScreen['remark'] != '') {
+     detailItem.value = detail;
+     qtyTextController.text = detail.qty.toString();
+     setUpTextController.text = detail.setUpQty.toString();
+     ncrTextController.text = detail.ncrQty.toString();
+     cancelTextController.text = detail.cancelQty.toString();
+
      Get.toNamed(infoScreen['remark']);
    }
   }

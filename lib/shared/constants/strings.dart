@@ -31,4 +31,11 @@ class StringConstant {
   static String options = 'Options';
 
   static const String DONE = 'DONE';
+  static const String DETAIL = 'Detail';
+  static const String QTY = 'Qty';
+  static const String SET_UP_QTY = 'Set up Qty';
+  static const String NCR_QTY= 'NCR Qty';
+  static const String CANCEL_QTY = 'Cancel Qty';
+
+
 }

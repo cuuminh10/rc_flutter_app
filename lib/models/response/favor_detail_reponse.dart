@@ -76,6 +76,9 @@ class Detail {
   double setUpQty;
   double ncrQty;
 
+  Detail();
+
+
   Detail.fromJsonMap(Map<String, dynamic> map):
         itemID = map["itemID"],
         qty = map["qty"],

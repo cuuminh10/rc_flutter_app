@@ -73,6 +73,7 @@ class CommonWidget {
 
   static Widget body({Container child, bool showSearch = false, TextEditingController controller, void Function(String) onChange}) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         if (showSearch)
           GmcInputSearch(
