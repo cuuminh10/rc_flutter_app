@@ -9,3 +9,4 @@ export 'gmc_gridview.dart';
 export 'gmc_card.dart';
 export 'gmc_sort_popup.dart';
 export 'gmc_message.dart';
+export 'gmc_cupertino_bottom.dart';

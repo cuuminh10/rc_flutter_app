@@ -13,7 +13,7 @@ class ErrorResponse {
   String toRawJson() => json.encode(toJson());
 
   factory ErrorResponse.fromJson(Map<String, dynamic> json) => ErrorResponse(
-    message: json["message"],
+    message: json["message"] ?? json["error"],
   );
 
   Map<String, dynamic> toJson() => {

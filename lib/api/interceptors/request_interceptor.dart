@@ -12,10 +12,10 @@ FutureOr<Request> requestInterceptor(request) async {
 
   if (prefs.getString(StorageConstants.token) != null) {
     request.headers['Authorization'] = 'Bearer ${prefs.getString(StorageConstants.token)}';
-    // request.headers['Accept'] = 'application/json, text/plain, */*';
+    request.headers['Accept'] = 'application/json, text/plain, */*';
   }
 
-  request.headers['Content-Type'] = 'application/json';
+  // request.headers['Content-Type'] = 'application/json';
 
   EasyLoading.show(status: 'loading...');
   return request as Request;

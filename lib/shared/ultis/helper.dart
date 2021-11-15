@@ -35,6 +35,7 @@ class helper {
         data['editDesc'] = false;
         data['actionAppbBar'] = 'Result';
         data['screen'] = Routes.FAVOR_LIST;
+        data['remark'] = '';
         break;
       case ProductionFG:
         data = {};
@@ -47,6 +48,7 @@ class helper {
         data['editDesc'] = true;
         data['actionAppbBar'] = 'Save';
         data['screen'] = Routes.FAVOR;
+        data['remark'] = Routes.FAVOR_DETAIL+Routes.REMARK;
         break;
     }
 
@@ -162,6 +164,7 @@ class helper {
       // User canceled the picker
     }
   }
+
 
 
 

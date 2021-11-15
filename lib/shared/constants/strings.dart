@@ -25,4 +25,10 @@ class StringConstant {
   static String shortcut = 'Short cut';
   static String all = 'All';
   static String send = 'Send';
+
+  static String camera = 'Camera';
+  static String photoFromCamera = 'Photo from camera';
+  static String options = 'Options';
+
+  static const String DONE = 'DONE';
 }

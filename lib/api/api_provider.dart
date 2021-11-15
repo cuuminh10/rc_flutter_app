@@ -4,6 +4,7 @@ import 'package:gmc_app/models/request/comment_request.dart';
 import 'package:gmc_app/models/request/favor_list_request.dart';
 import 'package:gmc_app/models/request/menu_request.dart';
 import 'package:gmc_app/models/request/login_request.dart';
+import 'package:get/get.dart';
 
 import 'base_provider.dart';
 
@@ -44,5 +45,9 @@ class ApiProvider extends BaseProvider {
 
   Future<Response> onPostComment(String path, CommentRequest commentRequest) {
     return post(path, commentRequest.toJson());
+  }
+
+  Future<Response> onAttachComment(String path, FormData form) {
+    return post(path, form, contentType: 'multipart/form-data');
   }
 }

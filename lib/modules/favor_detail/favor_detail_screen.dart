@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gmc_app/modules/favor_detail/favor_detail_controller.dart';
@@ -8,6 +9,7 @@ import 'package:gmc_app/shared/constants/strings.dart';
 import 'package:gmc_app/shared/ultis/helper.dart';
 import 'package:gmc_app/shared/ultis/ultis.dart';
 import 'package:gmc_app/shared/widgets/gmc_button_svg.dart';
+import 'package:gmc_app/shared/widgets/gmc_cupertino_bottom.dart';
 import 'package:gmc_app/shared/widgets/gmc_inputField.dart';
 import 'package:gmc_app/shared/widgets/gmc_label.dart';
 import 'package:gmc_app/shared/widgets/gmc_space.dart';
@@ -17,6 +19,13 @@ import 'package:gmc_app/shared/widgets/gmc_tiles.dart';
 class FavorDetailScreen extends GetView<FavorDetailController> {
   @override
   Widget build(BuildContext context) {
+    final gmcCupertinoCamera = List<GmcCupertinoBottom>()
+      ..add(GmcCupertinoBottom(lable: StringConstant.camera))
+      ..add(GmcCupertinoBottom(
+        lable: StringConstant.photoFromCamera,
+        onPressed: () => controller.uploadImageGallery(before: true),
+      ));
+
     SizeConfig().init(context);
     return Obx(
       () => controller.favorDetailResponse.value.id != null
@@ -266,13 +275,20 @@ class FavorDetailScreen extends GetView<FavorDetailController> {
                                 GmcSpace(
                                   width: SizeConfig().screenWidth * 0.01,
                                 ),
-                                const GmcButtonSvg(
-                                    iconSvg: 'assets/svg/attach.svg'),
+                                GmcButtonSvg(
+                                    iconSvg: 'assets/svg/attach.svg', onPressed: () => controller.uploadPdf(),),
                                 GmcSpace(
                                   width: SizeConfig().screenWidth * 0.01,
                                 ),
-                                const GmcButtonSvg(
-                                    iconSvg: 'assets/svg/camera.svg'),
+                                 GmcButtonSvg(
+                                    iconSvg: 'assets/svg/camera.svg', onPressed: () => {
+                                  showCupertinoModalPopup(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          controller.cupertinoActionSheets(
+                                              StringConstant.options,
+                                              gmcCupertinoCamera))
+                                },),
                                 Expanded(
                                   child: Container(
                                     padding: EdgeInsets.all(

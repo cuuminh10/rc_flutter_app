@@ -24,6 +24,7 @@ FutureOr<dynamic> responseInterceptor(
 void handleErrorStatus(Response response) {
   switch (response.statusCode) {
     case 400:
+    case 500:
       final message = ErrorResponse.fromJson(response.body);
       CommonWidget.toast(message.message);
       break;

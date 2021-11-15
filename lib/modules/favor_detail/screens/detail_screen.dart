@@ -16,7 +16,7 @@ class DetailScreen extends GetView<FavorDetailController> {
         mainAxisSize: MainAxisSize.min,
         children: List.generate(controller.favorDetailResponse.value.listDetail.length, (index) =>
             GestureDetector(
-              onTap: () => {},
+              onTap: () => controller.redirectRemark(),
               child: Container(
                 margin: EdgeInsets.only(bottom: SizeConfig().screenHeight * 0.02),
                 padding: EdgeInsets.all(5.0),

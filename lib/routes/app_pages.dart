@@ -6,6 +6,7 @@ import 'package:gmc_app/modules/favor/favor_screen.dart';
 import 'package:gmc_app/modules/favor_detail/favor_detail_binding.dart';
 import 'package:gmc_app/modules/favor_detail/favor_detail_controller.dart';
 import 'package:gmc_app/modules/favor_detail/favor_detail_screen.dart';
+import 'package:gmc_app/modules/favor_detail/screens/remark_screen.dart';
 import 'package:gmc_app/modules/favor_list/favor_list_binding.dart';
 import 'package:gmc_app/modules/favor_list/favor_list_screen.dart';
 import 'package:gmc_app/modules/menu/menu_binding.dart';
@@ -48,6 +49,12 @@ class AppPages {
       name: Routes.FAVOR_DETAIL,
       page: () => FavorDetailScreen(),
       binding:  FavorDetailBinding(),
+        children: [
+          GetPage(
+            name: Routes.REMARK,
+            page: () => RemarkScreen(),
+          ),
+        ]
     ),
   ];
 }
