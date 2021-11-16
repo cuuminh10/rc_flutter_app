@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:gmc_app/shared/constants/colors.dart';
 import 'package:gmc_app/shared/ultis/helper.dart';
 import 'package:gmc_app/shared/ultis/ultis.dart';
+import 'package:gmc_app/shared/widgets/gmc_fancy_fab.dart';
 import 'package:gmc_app/shared/widgets/gmc_label.dart';
 import 'package:gmc_app/shared/widgets/gmc_list_tile.dart';
 import 'package:gmc_app/shared/widgets/gmc_space.dart';
@@ -66,6 +67,10 @@ class FavorScreen extends GetView<FavorController> {
                   );
                 }),
           ),
+        ),
+        floatingActionButton:  GmcFancyFab(
+          onScan: () => controller.scanRedirectFavor(),
+          onScanCreat: () => controller.scanAddRedirectFavor(),
         ),
       ),
     );

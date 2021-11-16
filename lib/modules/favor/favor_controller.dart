@@ -6,6 +6,7 @@ import 'package:gmc_app/models/request/favor_list_request.dart';
 import 'package:gmc_app/models/response/favor_reponse.dart';
 import 'package:gmc_app/routes/app_pages.dart';
 import 'package:gmc_app/shared/constants/constants.dart';
+import 'package:gmc_app/shared/ultis/helper.dart';
 
 class FavorController extends GetxController {
   final ApiRepository apiRepository;
@@ -52,7 +53,7 @@ class FavorController extends GetxController {
   }
 
   redirectTo(FavorResponse favorListItem) {
-      Get.toNamed(Routes.FAVOR_DETAIL,arguments: favorListItem);
+      Get.toNamed(Routes.FAVOR_DETAIL,arguments: favorListItem.no);
   }
 
   onChangeSearch(String e) {
@@ -60,5 +61,27 @@ class FavorController extends GetxController {
     var newList = listFavor.value.where((element) => element.no.toLowerCase().contains(e)).toList();
     listFavorSearch.value = newList;
     listFavorSearch.refresh();
+  }
+
+  void scanRedirectFavor() async {
+    helper.scan().then((barcode) => {
+      if (barcode != null && barcode != '')
+        {Get.toNamed(Routes.FAVOR_DETAIL, arguments: barcode)}
+    });
+  }
+
+  void scanAddRedirectFavor() async {
+    helper.scan().then((barcode) => {
+      if (barcode != null && barcode != '')
+        {
+          Get.toNamed(
+            Routes.FAVOR_DETAIL,
+            arguments: barcode,
+            parameters: {
+              "new": 'new',
+            },
+          )
+        }
+    });
   }
 }

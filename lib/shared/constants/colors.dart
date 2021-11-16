@@ -6,6 +6,9 @@ class ColorConstants {
   static Color Blue100 = hexToColor('#E1EDF9');
   static Color Gray6 = hexToColor('#D1D5DB');
   static Color Gray3 = hexToColor('#4B5563');
+  static Color Orange600 = hexToColor('#F7941D');
+
+
   static Color content = hexToColor('#4E5983');
   static Color lightYellow = hexToColor('#FFEECA');
   static Color lightGray = Color(0xFFF6F6F6);

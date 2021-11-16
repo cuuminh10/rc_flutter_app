@@ -6,6 +6,7 @@ import 'package:gmc_app/models/request/comment_request.dart';
 import 'package:gmc_app/models/request/favor_list_request.dart';
 import 'package:gmc_app/models/request/menu_request.dart';
 import 'package:gmc_app/models/request/login_request.dart';
+import 'package:gmc_app/models/request/product_order_request.dart';
 import 'package:gmc_app/models/response/attach_response.dart';
 import 'package:gmc_app/models/response/comment_response.dart';
 import 'package:gmc_app/models/response/favor_detail_reponse.dart';
@@ -105,6 +106,13 @@ class ApiRepository extends BaseProvider{
     final res = await apiProvider.onAttachComment(path, formData);
     if (res.statusCode == 200) {
       return AttachResponse.fromJsonMap(res.body);
+    }
+  }
+
+  Future<dynamic> onPutProductOrder(String path, ProductOrderRequest productOrderRequest) async {
+    final res = await apiProvider.onPutProductOrder(path, productOrderRequest);
+    if (res.statusCode == 200) {
+      return res;
     }
   }
 }

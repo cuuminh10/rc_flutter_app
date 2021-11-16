@@ -37,6 +37,7 @@ class FavorDetailScreen extends GetView<FavorDetailController> {
                     customAction: Align(
                       alignment: Alignment.center,
                       child: GestureDetector(
+                        onTap: () => controller.submitPO(),
                         child: Text(
                           controller.infoScreen['actionAppbBar'],
                           style: TextStyle(

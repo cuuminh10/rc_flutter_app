@@ -1,6 +1,6 @@
-
 import 'dart:io';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:gmc_app/models/request/product_order_request.dart';
 import 'package:gmc_app/routes/app_pages.dart';
 import 'package:gmc_app/shared/widgets/gmc_cupertino_bottom.dart';
 import 'package:path/path.dart';
@@ -12,6 +12,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:gmc_app/api/api_repository.dart';
 import 'package:gmc_app/models/request/comment_request.dart';
 import 'package:gmc_app/models/response/favor_detail_reponse.dart';
+
 import 'package:gmc_app/models/response/favor_reponse.dart';
 import 'package:gmc_app/shared/constants/constants.dart';
 import 'package:gmc_app/shared/ultis/helper.dart';
@@ -29,7 +30,8 @@ class FavorDetailController extends GetxController {
   RxString reply = ''.obs;
   RxString pathFileComment = ''.obs;
   dynamic infoScreen = GetStorage().read(StorageConstants.infoScreen);
-  FavorResponse arguments = Get.arguments;
+  dynamic arguments = Get.arguments;
+  dynamic parameters = Get.parameters;
   RxString tittle = ''.obs;
   Rx<FavorDetailResponse> favorDetailResponse = FavorDetailResponse().obs;
   Rx<Detail> detailItem = Detail().obs;
@@ -43,14 +45,14 @@ class FavorDetailController extends GetxController {
 
   var listDocument = RxList<Document>();
 
-
-
-
   @override
   void onInit() {
     super.onInit();
     final prefs = Get.find<SharedPreferences>();
     commentTextController.text = '';
+    if (parameters != null && parameters['new'] == 'new') {
+      infoScreen = helper.filterScreensGMC(helper.ProductionFG);
+    }
     // INIT list server
   }
 
@@ -60,27 +62,36 @@ class FavorDetailController extends GetxController {
     initialData();
   }
 
-
-  void initialData () async {
-    final res = await apiRepository.onGetFavorDetail('/productOrder/detail/v2/${infoScreen['code']}/${arguments.no.trim().replaceAll(RegExp(r'/'), '%2F')}');
+  void initialData() async {
+    final res = await apiRepository.onGetFavorDetail(
+        '/productOrder/detail/v2/${infoScreen['code']}/${arguments.trim().replaceAll(RegExp(r'/'), '%2F')}');
     if (res != null) {
       favorDetailResponse.value = res;
       listDocument.value = res.listDocument;
-      descriptionTextFieldController.value = TextEditingValue(text: res.description);
+      descriptionTextFieldController.text = res.description;
+      descriptionTextFieldController.value =
+          TextEditingValue(text: res.description);
     }
   }
 
-  void sendComment () async {
-   if (commentTextController.text != '') {
-     final res = await apiRepository.onPostComment('/fc/comment/${infoScreen['code']}/${favorDetailResponse.value.id}', CommentRequest(content: commentTextController.text));
-     if (res != null) {
-       listDocument.value.insert(0, Document(comment: res.comment, createUser: res.createUser, createDate: res.createDate ));
-       listDocument.refresh();
-       commentTextController.text = '';
-     }
-   }else {
-     Get.snackbar('', "Comment can' empty");
-   }
+  void sendComment() async {
+    if (commentTextController.text != '') {
+      final res = await apiRepository.onPostComment(
+          '/fc/comment/${infoScreen['code']}/${favorDetailResponse.value.id}',
+          CommentRequest(content: commentTextController.text));
+      if (res != null) {
+        listDocument.value.insert(
+            0,
+            Document(
+                comment: res.comment,
+                createUser: res.createUser,
+                createDate: res.createDate));
+        listDocument.refresh();
+        commentTextController.text = '';
+      }
+    } else {
+      Get.snackbar('', "Comment can' empty");
+    }
   }
 
   void replyFunction(String msg) {
@@ -96,8 +107,7 @@ class FavorDetailController extends GetxController {
     );
   }
 
-  void sendAttach (String pathFile) async {
-
+  void sendAttach(String pathFile) async {
     File file = File(pathFile);
     MultipartFile f = null;
     if (file.exists() != null) {
@@ -110,43 +120,66 @@ class FavorDetailController extends GetxController {
     });
 
     if (f != null) {
-      final res = await apiRepository.onPostAttach('/fc/fileUpload/${infoScreen['code']}/${favorDetailResponse.value.id}', form);
+      final res = await apiRepository.onPostAttach(
+          '/fc/fileUpload/${infoScreen['code']}/${favorDetailResponse.value.id}',
+          form);
       if (res != null) {
-        listDocument.value.insert(0, Document(saveName: res.saveName, realName: res.realName, createUser: res.createUser, createDate: res.createDate, types: 'attach' ));
+        listDocument.value.insert(
+            0,
+            Document(
+                saveName: res.saveName,
+                realName: res.realName,
+                createUser: res.createUser,
+                createDate: res.createDate,
+                types: 'attach'));
         listDocument.refresh();
         commentTextController.text = '';
       }
-    }else {
+    } else {
       Get.snackbar('', "Comment can' empty");
     }
   }
 
   void uploadImageGallery({bool before}) async {
-    await helper.pickImageFormGallery().then((value) =>
-        sendAttach(value)
-    );
+    await helper.pickImageFormGallery().then((value) => sendAttach(value));
+  }
+  void submitPO() async {
+    if (infoScreen['code'] == StringConstant.PRODUCT_RESUlT) {
+
+      final res = await apiRepository.onPutProductOrder(
+          '/productOrder/${favorDetailResponse.value.id}',
+          ProductOrderRequest(
+              description: descriptionTextFieldController.text,
+              listDetail: favorDetailResponse.value.listDetail
+                  .map((e) => DetailPO.copyFromDetail(e))
+                  .toList()));
+      if (res != null) {
+        Get.back();
+        Get.snackbar(favorDetailResponse.value.no, StringConstant.UPDATE_SCUSSES);
+      }
+    }
   }
 
-  void uploadPdf() async{
+  void uploadPdf() async {
     var path = await helper.openFileExplorer();
     if (path != null && path != '') {
       sendAttach(path);
     }
   }
 
-  void redirectRemark(Detail detail) async{
-   if (infoScreen['remark'] != null && infoScreen['remark'] != '') {
-     detailItem.value = detail;
-     qtyTextController.text = detail.qty.toString();
-     setUpTextController.text = detail.setUpQty.toString();
-     ncrTextController.text = detail.ncrQty.toString();
-     cancelTextController.text = detail.cancelQty.toString();
+  void redirectRemark(Detail detail) async {
+    if (infoScreen['remark'] != null && infoScreen['remark'] != '') {
+      detailItem.value = detail;
+      qtyTextController.text = detail.qty.toString();
+      setUpTextController.text = detail.setUpQty.toString();
+      ncrTextController.text = detail.ncrQty.toString();
+      cancelTextController.text = detail.cancelQty.toString();
 
-     Get.toNamed(infoScreen['remark']);
-   }
+      Get.toNamed(infoScreen['remark']);
+    }
   }
 
-  void onTapButtonDone () {
+  void onTapButtonDone() {
     detailItem.value.qty = double.parse(qtyTextController.text);
     detailItem.value.setUpQty = double.parse(setUpTextController.text);
     detailItem.value.ncrQty = double.parse(ncrTextController.text);
@@ -155,21 +188,23 @@ class FavorDetailController extends GetxController {
     Get.back();
   }
 
-  void decreaseQty (TextEditingController text) {
+  void decreaseQty(TextEditingController text) {
     text.text = (double.parse(text.text) - 1).toString();
   }
 
-  void increaseQty (TextEditingController text) {
+  void increaseQty(TextEditingController text) {
     text.text = (double.parse(text.text) + 1).toString();
   }
 
-
   Future<Attach> postAttach(String file) async {
-    final url = "${dotenv.env['apiBasedURL']}/fc/fileUpload/${infoScreen['code']}/${favorDetailResponse.value.id}";
+    final url =
+        "${dotenv.env['apiBasedURL']}/fc/fileUpload/${infoScreen['code']}/${favorDetailResponse.value.id}";
     var map = new Map<String, dynamic>();
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    Map<String, String> headers = { "Authorization": 'Bearer ${prefs.getString('token')}'};
+    Map<String, String> headers = {
+      "Authorization": 'Bearer ${prefs.getString('token')}'
+    };
 
     var request = http.MultipartRequest('POST', Uri.parse(url));
     request.files.add(await http.MultipartFile.fromPath('file', file));
@@ -185,6 +220,7 @@ class FavorDetailController extends GetxController {
       throw Exception('Failed to load get');
     }
   }
+
   CupertinoActionSheet cupertinoActionSheets(
       String label, List<GmcCupertinoBottom> list) {
     return CupertinoActionSheet(

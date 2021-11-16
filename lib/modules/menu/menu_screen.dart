@@ -103,7 +103,9 @@ class MenuScreen extends GetView<MenuController> {
                                       itemCount: controller.listProduction.value.length,
                                       separatorBuilder: (BuildContext context, int index) => const Divider(height: 10, color: Colors.white,),
                                       itemBuilder: (BuildContext context, int index) {
+                                        var item = controller.listProduction.value[index];
                                         return GmcListTile(
+                                          onTapItem: () => controller.redirectTo(item),
                                           onTapTralling:() => controller.onTapButtonMenu(controller.listProduction.value[index]),
                                           iconLeading: controller.listProduction.value[index].image,
                                           tittle: Text(controller.listProduction.value[index].name),

@@ -11,3 +11,4 @@ export 'gmc_sort_popup.dart';
 export 'gmc_message.dart';
 export 'gmc_cupertino_bottom.dart';
 export 'gmc_label_button.dart';
+export 'gmc_fancy_fab.dart';

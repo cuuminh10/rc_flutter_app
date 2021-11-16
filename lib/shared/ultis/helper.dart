@@ -1,5 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:gmc_app/models/response/favor_detail_reponse.dart';
@@ -162,6 +163,21 @@ class helper {
       return result.files[0].path;
     } else {
       // User canceled the picker
+    }
+  }
+
+  static Future<String> scan() async {
+    try {
+      await FlutterBarcodeScanner.scanBarcode(
+          "#ff6666", "Cancel", false, ScanMode.DEFAULT)
+          .then((barcode) {
+        return barcode;
+      });
+    } catch (exception, stackTrace) {
+      // await Sentry.captureException(
+      //   exception,
+      //   stackTrace: stackTrace,
+      // );
     }
   }
 

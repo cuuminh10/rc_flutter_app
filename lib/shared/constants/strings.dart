@@ -37,5 +37,7 @@ class StringConstant {
   static const String NCR_QTY= 'NCR Qty';
   static const String CANCEL_QTY = 'Cancel Qty';
 
+  static const String UPDATE_SCUSSES = 'Update success';
 
+  static const String PRODUCT_RESUlT = 'producResult';
 }
