@@ -146,6 +146,23 @@ class FavorDetailController extends GetxController {
    }
   }
 
+  void onTapButtonDone () {
+    detailItem.value.qty = double.parse(qtyTextController.text);
+    detailItem.value.setUpQty = double.parse(setUpTextController.text);
+    detailItem.value.ncrQty = double.parse(ncrTextController.text);
+    detailItem.value.cancelQty = double.parse(cancelTextController.text);
+    favorDetailResponse.refresh();
+    Get.back();
+  }
+
+  void decreaseQty (TextEditingController text) {
+    text.text = (double.parse(text.text) - 1).toString();
+  }
+
+  void increaseQty (TextEditingController text) {
+    text.text = (double.parse(text.text) + 1).toString();
+  }
+
 
   Future<Attach> postAttach(String file) async {
     final url = "${dotenv.env['apiBasedURL']}/fc/fileUpload/${infoScreen['code']}/${favorDetailResponse.value.id}";

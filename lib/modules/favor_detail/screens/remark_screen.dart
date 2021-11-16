@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:gmc_app/modules/favor_detail/favor_detail_controller.dart';
 import 'package:gmc_app/shared/constants/colors.dart';
@@ -25,6 +26,7 @@ class RemarkScreen extends GetView<FavorDetailController> {
                     customAction: Align(
                       alignment: Alignment.center,
                       child: GestureDetector(
+                        onTap: () => controller.onTapButtonDone(),
                         child: Text(
                           StringConstant.DONE,
                           style: TextStyle(
@@ -48,16 +50,16 @@ class RemarkScreen extends GetView<FavorDetailController> {
                           color: ColorConstants.Blue500,
                         ),
                         Container(
-                          margin:
-                          EdgeInsets.only(bottom: SizeConfig().screenHeight * 0.01),
+                          margin: EdgeInsets.only(
+                              bottom: SizeConfig().screenHeight * 0.01),
                           child: GmcSpace(
                             height: SizeConfig().screenHeight * 0.01,
                             border: ColorConstants.Blue500,
                           ),
                         ),
                         GmcLabel(
-                          label:
-                              'Phase' ' '+controller.detailItem.value.phaseName.toString(),
+                          label: 'Phase' ' ' +
+                              controller.detailItem.value.phaseName.toString(),
                           fontWeight: FontWeight.normal,
                           fontSize: 16.0,
                           color: ColorConstants.Blue500,
@@ -66,8 +68,7 @@ class RemarkScreen extends GetView<FavorDetailController> {
                           height: SizeConfig().screenHeight * 0.02,
                         ),
                         GmcLabel(
-                          label:
-                          StringConstant.DETAIL,
+                          label: StringConstant.DETAIL,
                           fontWeight: FontWeight.bold,
                           fontSize: 14.0,
                           color: ColorConstants.black,
@@ -82,7 +83,8 @@ class RemarkScreen extends GetView<FavorDetailController> {
                             color: ColorConstants.white,
                             boxShadow: [
                               BoxShadow(
-                                  color: ColorConstants.Blue100, spreadRadius: 1),
+                                  color: ColorConstants.Blue100,
+                                  spreadRadius: 1),
                             ],
                           ),
                           child: Table(
@@ -103,7 +105,8 @@ class RemarkScreen extends GetView<FavorDetailController> {
                                   children: [
                                     TableCell(
                                       child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8.0),
                                         child: GmcLabel(
                                           label: StringConstant.QTY,
                                           color: ColorConstants.black,
@@ -114,23 +117,34 @@ class RemarkScreen extends GetView<FavorDetailController> {
                                     ),
                                     TableCell(
                                       child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8.0),
                                         child: GmcLabelButton(
                                           label: '-',
                                           color: ColorConstants.Blue500,
                                           fontSize: 14.0,
                                           fontWeight: FontWeight.normal,
+                                          onPress: () => controller.decreaseQty(controller.qtyTextController),
                                         ),
                                       ),
                                     ),
                                     TableCell(
                                       child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 0.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 0.0),
                                         child: TextField(
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(color: ColorConstants.Blue500, fontWeight: FontWeight.normal),
-                                          controller: controller.qtyTextController,
-                                          decoration: new InputDecoration(
+                                          keyboardType: TextInputType.number,
+                                          inputFormatters: <TextInputFormatter>[
+                                            FilteringTextInputFormatter
+                                                .digitsOnly
+                                          ],
+                                          style: TextStyle(
+                                              color: ColorConstants.Blue500,
+                                              fontWeight: FontWeight.normal),
+                                          controller:
+                                              controller.qtyTextController,
+                                          decoration: const InputDecoration(
                                               border: InputBorder.none,
                                               focusedBorder: InputBorder.none,
                                               enabledBorder: InputBorder.none,
@@ -142,12 +156,14 @@ class RemarkScreen extends GetView<FavorDetailController> {
                                     ),
                                     TableCell(
                                       child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8.0),
                                         child: GmcLabelButton(
                                           label: '+',
                                           color: ColorConstants.Blue500,
                                           fontSize: 14.0,
                                           fontWeight: FontWeight.normal,
+                                          onPress: () => controller.increaseQty(controller.qtyTextController),
                                         ),
                                       ),
                                     ),
@@ -161,7 +177,8 @@ class RemarkScreen extends GetView<FavorDetailController> {
                                   children: [
                                     TableCell(
                                       child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8.0),
                                         child: GmcLabel(
                                           label: StringConstant.SET_UP_QTY,
                                           color: ColorConstants.black,
@@ -172,23 +189,34 @@ class RemarkScreen extends GetView<FavorDetailController> {
                                     ),
                                     TableCell(
                                       child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8.0),
                                         child: GmcLabelButton(
                                           label: '-',
                                           color: ColorConstants.Blue500,
                                           fontSize: 14.0,
                                           fontWeight: FontWeight.normal,
+                                          onPress: () => controller.decreaseQty(controller.setUpTextController),
                                         ),
                                       ),
                                     ),
                                     TableCell(
                                       child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 0.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 0.0),
                                         child: TextField(
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(color: ColorConstants.Blue500, fontWeight: FontWeight.normal),
-                                          controller: controller.setUpTextController,
-                                          decoration: new InputDecoration(
+                                          style: TextStyle(
+                                              color: ColorConstants.Blue500,
+                                              fontWeight: FontWeight.normal),
+                                          controller:
+                                              controller.setUpTextController,
+                                          keyboardType: TextInputType.number,
+                                          inputFormatters: <TextInputFormatter>[
+                                            FilteringTextInputFormatter
+                                                .digitsOnly
+                                          ],
+                                          decoration: const InputDecoration(
                                               border: InputBorder.none,
                                               focusedBorder: InputBorder.none,
                                               enabledBorder: InputBorder.none,
@@ -200,12 +228,14 @@ class RemarkScreen extends GetView<FavorDetailController> {
                                     ),
                                     TableCell(
                                       child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8.0),
                                         child: GmcLabelButton(
                                           label: '+',
                                           color: ColorConstants.Blue500,
                                           fontSize: 14.0,
                                           fontWeight: FontWeight.normal,
+                                          onPress: () => controller.increaseQty(controller.setUpTextController),
                                         ),
                                       ),
                                     ),
@@ -219,7 +249,8 @@ class RemarkScreen extends GetView<FavorDetailController> {
                                   children: [
                                     TableCell(
                                       child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8.0),
                                         child: GmcLabel(
                                           label: StringConstant.NCR_QTY,
                                           color: ColorConstants.black,
@@ -230,23 +261,34 @@ class RemarkScreen extends GetView<FavorDetailController> {
                                     ),
                                     TableCell(
                                       child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8.0),
                                         child: GmcLabelButton(
                                           label: '-',
                                           color: ColorConstants.Blue500,
                                           fontSize: 14.0,
                                           fontWeight: FontWeight.normal,
+                                          onPress: () => controller.decreaseQty(controller.ncrTextController),
                                         ),
                                       ),
                                     ),
                                     TableCell(
                                       child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 0.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 0.0),
                                         child: TextField(
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(color: ColorConstants.Blue500, fontWeight: FontWeight.normal),
-                                          controller: controller.ncrTextController,
-                                          decoration: new InputDecoration(
+                                          style: TextStyle(
+                                              color: ColorConstants.Blue500,
+                                              fontWeight: FontWeight.normal),
+                                          controller:
+                                              controller.ncrTextController,
+                                          keyboardType: TextInputType.number,
+                                          inputFormatters: <TextInputFormatter>[
+                                            FilteringTextInputFormatter
+                                                .digitsOnly
+                                          ],
+                                          decoration: const InputDecoration(
                                               border: InputBorder.none,
                                               focusedBorder: InputBorder.none,
                                               enabledBorder: InputBorder.none,
@@ -258,66 +300,84 @@ class RemarkScreen extends GetView<FavorDetailController> {
                                     ),
                                     TableCell(
                                       child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8.0),
                                         child: GmcLabelButton(
                                           label: '+',
                                           color: ColorConstants.Blue500,
                                           fontSize: 14.0,
                                           fontWeight: FontWeight.normal,
+                                          onPress: () => controller.increaseQty(controller.ncrTextController),
                                         ),
                                       ),
                                     ),
                                   ]),
-                              TableRow(
-                                  children: [
-                                    TableCell(
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 8.0),                                    child: GmcLabel(
-                                        label: StringConstant.CANCEL_QTY,
-                                        color: ColorConstants.black,
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                      ),
+                              TableRow(children: [
+                                TableCell(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
+                                    child: GmcLabel(
+                                      label: StringConstant.CANCEL_QTY,
+                                      color: ColorConstants.black,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.normal,
                                     ),
-                                    TableCell(
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 8.0),                                    child: GmcLabelButton(
-                                        label: '-',
-                                        color: ColorConstants.Blue500,
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                      ),
+                                  ),
+                                ),
+                                TableCell(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
+                                    child: GmcLabelButton(
+                                      label: '-',
+                                      color: ColorConstants.Blue500,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.normal,
+                                      onPress: () => controller.decreaseQty(controller.cancelTextController),
                                     ),
-                                    TableCell(
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 0.0),
-                                        child: TextField(
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(color: ColorConstants.Blue500, fontWeight: FontWeight.normal),
-                                          controller: controller.cancelTextController,
-                                          decoration: new InputDecoration(
-                                              border: InputBorder.none,
-                                              focusedBorder: InputBorder.none,
-                                              enabledBorder: InputBorder.none,
-                                              errorBorder: InputBorder.none,
-                                              disabledBorder: InputBorder.none,
-                                              hintText: "Hint here"),
-                                        ),
-                                      ),
+                                  ),
+                                ),
+                                TableCell(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 0.0),
+                                    child: TextField(
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: ColorConstants.Blue500,
+                                          fontWeight: FontWeight.normal),
+                                      controller:
+                                          controller.cancelTextController,
+                                      keyboardType: TextInputType.number,
+                                      inputFormatters: <TextInputFormatter>[
+                                        FilteringTextInputFormatter
+                                            .digitsOnly
+                                      ],
+                                      decoration: const InputDecoration(
+                                          border: InputBorder.none,
+                                          focusedBorder: InputBorder.none,
+                                          enabledBorder: InputBorder.none,
+                                          errorBorder: InputBorder.none,
+                                          disabledBorder: InputBorder.none,
+                                          hintText: "Hint here"),
                                     ),
-                                    TableCell(
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 8.0),                                    child: GmcLabelButton(
-                                        label: '+',
-                                        color: ColorConstants.Blue500,
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                      ),
+                                  ),
+                                ),
+                                TableCell(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
+                                    child: GmcLabelButton(
+                                      label: '+',
+                                      color: ColorConstants.Blue500,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.normal,
+                                      onPress: () => controller.increaseQty(controller.cancelTextController),
                                     ),
-                                  ])
+                                  ),
+                                ),
+                              ])
                             ],
                           ),
                         ),
