@@ -42,8 +42,9 @@ class FavorDetailController extends GetxController {
   final setUpTextController = TextEditingController();
   final ncrTextController = TextEditingController();
   final cancelTextController = TextEditingController();
-
+  final formKey = GlobalKey<FormState>();
   var listDocument = RxList<Document>();
+  final TextEditingController commentController = TextEditingController();
 
   @override
   void onInit() {
@@ -143,9 +144,9 @@ class FavorDetailController extends GetxController {
   void uploadImageGallery({bool before}) async {
     await helper.pickImageFormGallery().then((value) => sendAttach(value));
   }
+
   void submitPO() async {
     if (infoScreen['code'] == StringConstant.PRODUCT_RESUlT) {
-
       final res = await apiRepository.onPutProductOrder(
           '/productOrder/${favorDetailResponse.value.id}',
           ProductOrderRequest(
@@ -155,7 +156,8 @@ class FavorDetailController extends GetxController {
                   .toList()));
       if (res != null) {
         Get.back();
-        Get.snackbar(favorDetailResponse.value.no, StringConstant.UPDATE_SCUSSES);
+        Get.snackbar(
+            favorDetailResponse.value.no, StringConstant.UPDATE_SCUSSES);
       }
     }
   }

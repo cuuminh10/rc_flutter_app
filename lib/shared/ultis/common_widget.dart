@@ -8,7 +8,12 @@ import 'package:gmc_app/shared/widgets/gmc_svg.dart';
 class CommonWidget {
   static AppBar appBar(
       BuildContext context, String title, IconData backIcon, Color color,
-      {void Function() callback, void Function(String) callbackGroupBy ,Map<String,String> listSort, void Function() callbackSearch, void Function(dynamic) callbackSearchModel, Widget customAction}) {
+      {void Function() callback,
+      void Function(String) callbackGroupBy,
+      Map<String, String> listSort,
+      void Function() callbackSearch,
+      void Function(dynamic) callbackSearchModel,
+      Widget customAction}) {
     return AppBar(
       actions: [
         if (callbackSearch != null && callbackSearchModel == null)
@@ -28,8 +33,8 @@ class CommonWidget {
                 color: Colors.black87,
                 size: 30,
               ),
-              onGroupBy:  callbackSearchModel),
-       if (callbackGroupBy != null)
+              onGroupBy: callbackSearchModel),
+        if (callbackGroupBy != null)
           GmcSortPopup(
             child: Icon(
               Icons.sort_by_alpha_outlined,
@@ -40,27 +45,25 @@ class CommonWidget {
             listSort: listSort,
             callbackGroupBy: callbackGroupBy,
           ),
-
-        if (customAction !=null)
-          customAction
+        if (customAction != null) customAction
       ],
       leading: backIcon == null
           ? null
           : IconButton(
-        icon: Icon(backIcon, color: color),
-        onPressed: () {
-          if (callback != null) {
-            callback();
-          } else {
-            Navigator.pop(context);
-          }
-        },
-      ),
+              icon: Icon(backIcon, color: color),
+              onPressed: () {
+                if (callback != null) {
+                  callback();
+                } else {
+                  Navigator.pop(context);
+                }
+              },
+            ),
       titleSpacing: 0.0,
       centerTitle: false,
       title: Transform(
         transform:
-        Matrix4.translationValues(backIcon == null ? -40.0 : 0.0, 0.0, 0.0),
+            Matrix4.translationValues(backIcon == null ? -40.0 : 0.0, 0.0, 0.0),
         child: Text(
           title,
           style: TextStyle(color: color, fontFamily: 'Rubik'),
@@ -71,7 +74,11 @@ class CommonWidget {
     );
   }
 
-  static Widget body({Container child, bool showSearch = false, TextEditingController controller, void Function(String) onChange}) {
+  static Widget body(
+      {Container child,
+      bool showSearch = false,
+      TextEditingController controller,
+      void Function(String) onChange}) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
