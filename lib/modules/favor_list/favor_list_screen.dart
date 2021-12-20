@@ -22,7 +22,7 @@ class FavorListScreen extends GetView<FavorListController> {
             Icons.arrow_back,
             Colors.black,
             listSort: controller.listSort,
-            callbackSearchModel: (e) => controller.groupByFavorList(favorListRequest: e),
+            callbackSearchModel: (e) => controller.groupByFavorList(favor: e),
             callbackGroupBy: (e) => controller.groupByFavorList(property: e),
             // callbackSearch: () => controller.onClickSearch()
         ),

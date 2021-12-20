@@ -13,11 +13,12 @@ class FavorListController extends GetxController {
   Map<String, String> listSort = Global.listSortFavor();
   var infoScreen = GetStorage().read(StorageConstants.infoScreen);
   RxString tittle = ''.obs;
+  String groupbyColumn = 'status';
   var arguments = Get.arguments;
 
   FavorListController({this.apiRepository});
 
-  var favorListRequest;
+  FavorListRequest favorListRequest = FavorListRequest(groupByColumn: 'status');
   var listFavor = RxList<FavorListResponse>();
 
   @override
@@ -45,12 +46,11 @@ class FavorListController extends GetxController {
     }
   }
 
-  void groupByFavorList(
-      {String property, FavorListRequest favorListRequest}) async {
-    favorListRequest = favorListRequest;
+  void groupByFavorList({String property, FavorListRequest favor}) async {
+    favorListRequest = FavorListRequest();
+    favorListRequest.groupByColumn = property;
     final res = await apiRepository.onPostListFavor(
-        '/productOrder/groups/v2/jobticket',
-        favorListRequest ?? FavorListRequest(groupByColumn: property));
+        '/productOrder/groups/v2/jobticket', favorListRequest);
     if (res != null) {
       listFavor.value = res;
     }
@@ -79,6 +79,7 @@ class FavorListController extends GetxController {
   }
 
   void redirectTo(FavorListResponse favorListResponse) {
+    favorListRequest.groupByValue = favorListResponse.name;
     GetStorage().write(StorageConstants.favorListRequest, favorListRequest);
     Get.toNamed(Routes.FAVOR, arguments: favorListResponse.name);
   }
